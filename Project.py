@@ -7,7 +7,6 @@ class EmployeeManager:
     def __init__(self):
         self.all_employees = []
         self.ids = set()
-        # Load existing employees from CSV if file exists
         if os.path.exists("employees.csv"):
             with open("employees.csv", "r") as f:
                 for line in f:
@@ -25,15 +24,24 @@ class EmployeeManager:
                 print("This ID already exists. Please use a unique ID.")
                 input("Press Enter to continue")
                 return
-        self.ids.add(id)
+        try:
+            salary=float(salary)
+        except ValueError:
+            print("Invalid salary input. Please enter a numeric value.")
+            input("Press Enter to continue")
+            return
+        
         employee={
             "id":id,
             "name":name,
             "position":position,
             "salary":salary
         }
+
         self.all_employees.append(employee)
+        
         open("employees.csv","a").write(f"{employee}\n")
+        self.ids.add(id)
         print("Employee added successfully")
         input("Press Enter to continue")
     def view_all_employees(self):
@@ -50,8 +58,15 @@ class EmployeeManager:
                     employee["name"]=name
                 if position!=None:
                     employee["position"]=position
+                    
                 if salary!=None:
-                    employee["salary"]=salary
+                    try:
+                        salary=float(salary)
+                    except ValueError:
+                        print("Invalid salary input. Please enter a numeric value.")
+                        input("Press Enter to continue")
+                        return
+                    employee["salary"]=float(salary)
                 with open("employees.csv", "w") as f:
                     for emp in self.all_employees:
                         f.write(f"{emp}\n")
