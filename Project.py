@@ -25,9 +25,10 @@ class EmployeeManager:
                 input("Press Enter to continue")
                 return
         try:
+            check=int(id)
             salary=float(salary)
         except ValueError:
-            print("Invalid salary input. Please enter a numeric value.")
+            print("Invalid salary or id input.")
             input("Press Enter to continue")
             return
         
@@ -61,9 +62,10 @@ class EmployeeManager:
                     
                 if salary!=None:
                     try:
+                        check=int(id)
                         salary=float(salary)
                     except ValueError:
-                        print("Invalid salary input. Please enter a numeric value.")
+                        print("Invalid salary or id input.")
                         input("Press Enter to continue")
                         return
                     employee["salary"]=float(salary)
