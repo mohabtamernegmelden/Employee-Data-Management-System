@@ -49,7 +49,6 @@ class EmployeeManager:
         print("All Employees:")
         for employee in self.all_employees:
             print(employee)
-            print("---------------------")
         print("End of employee list")
         input("Press Enter to continue")
     def update_employee(self,id,name=None,position=None,salary=None):
