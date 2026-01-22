@@ -21,7 +21,7 @@ class EmployeeManager:
     def add_employee(self,id,name,position,salary):
         for id_existing in self.ids:
             if id_existing==id:
-                print("This ID already exists. Please use a unique ID.")
+                print("This ID already exists. Please use a undique ID.")
                 input("Press Enter to continue")
                 return
         try:
