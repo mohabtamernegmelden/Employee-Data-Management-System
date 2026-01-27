@@ -18,7 +18,7 @@ class EmployeeManager:
                             self.ids.add(employee['id'])
                         except (ValueError, SyntaxError):
                             print(f"Warning: Skipping invalid line in CSV: {line}")
-    def add_employee(self,id,name,position,salary):
+    def add_employee(self,id,name,position,salary,email):
         for id_existing in self.ids:
             if id_existing==id:
                 print("This ID already exist. Please use a undique ID.")
@@ -31,12 +31,23 @@ class EmployeeManager:
             print("Invalid salary or id input.")
             input("Press Enter to continue")
             return
-        
+        try:
+            if "@" not in email:
+                raise ValueError
+            email_split=email.split("@")
+            if email_split[1].find(".") == -1 or len(email_split) != 2:
+                raise ValueError
+        except ValueError:
+            print("Invalid email input.")
+            input("Press Enter to continue")
+            return
         employee={
             "id":id,
             "name":name,
             "position":position,
-            "salary":salary
+            "salary":salary,
+            "email":email
+
         }
 
         self.all_employees.append(employee)
@@ -45,19 +56,36 @@ class EmployeeManager:
         self.ids.add(id)
         print("Employee added successfully")
         input("Press Enter to continue")
+
+
     def view_all_employees(self):
         print("All Employees:")
         for employee in self.all_employees:
             print(employee)
         print("End of employee list")
         input("Press Enter to continue")
-    def update_employee(self,id,name=None,position=None,salary=None):
+
+
+    def update_employee(self,id,name=None,position=None,salary=None,email=None):
         for employee in self.all_employees:
             if employee["id"]==id:
                 if name!=None:
                     employee["name"]=name
                 if position!=None:
                     employee["position"]=position
+                if email!=None:
+                    try:
+                        if "@" not in email:
+                            raise ValueError
+                        email_split=email.split("@")
+                        if email_split[1].find(".") == -1 or len(email_split) != 2:
+                            raise ValueError
+                    except ValueError:
+                        print("Invalid email input.")
+                        input("Press Enter to continue")
+                        return
+                        
+                    employee["email"]=email                    
                     
                 if salary!=None:
                     try:
@@ -77,6 +105,9 @@ class EmployeeManager:
         else:
             print("This ID doesn't exist")
             input("Press Enter to continue")
+
+
+
     def delete_employee(self,id):
         for employee in self.all_employees:
             if employee["id"]==id:
@@ -91,6 +122,9 @@ class EmployeeManager:
         else:
             print("This ID doesn't exist")
             input("Press Enter to continue")
+
+
+
     def search_employee(self,id):
         for employee in self.all_employees:
             if employee["id"]==id:
@@ -101,7 +135,9 @@ class EmployeeManager:
         else:
             print("This ID doesn't exist")
             input("Press Enter to continue")
-            
+            return
+
+
     def exit_system(self):
         print("Exiting the system.")
 
@@ -122,7 +158,8 @@ while True:
         name=input("Enter Employee Name: ")
         position=input("Enter Employee Position: ")
         salary=input("Enter Employee Salary: ")
-        manager.add_employee(id,name,position,salary)
+        email=input("Enter Employee Email: ")
+        manager.add_employee(id,name,position,salary,email)
         os.system('cls' if os.name == 'nt' else 'clear')
     elif choice==2:
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -135,7 +172,8 @@ while True:
         name=input("Enter new name (leave blank to keep unchanged): ")
         position=input("Enter new position (leave blank to keep unchanged): ")
         salary=input("Enter new salary (leave blank to keep unchanged): ")
-        manager.update_employee(id,name if name else None,position if position else None,salary if salary else None)
+        email=input("Enter new email (leave blank to keep unchanged): ")
+        manager.update_employee(id,name if name else None,position if position else None,salary if salary else None,email if email else None)
         os.system('cls' if os.name == 'nt' else 'clear')
     elif choice==4:
         os.system('cls' if os.name == 'nt' else 'clear')
