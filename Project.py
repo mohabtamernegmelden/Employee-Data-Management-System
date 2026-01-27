@@ -169,10 +169,10 @@ while True:
     elif choice==3:
         os.system('cls' if os.name == 'nt' else 'clear')
         id=input("Enter Employee ID to update: ")
-        name=input("Enter new name (leave blank to keep unchanged): ")
-        position=input("Enter new position (leave blank to keep unchanged): ")
-        salary=input("Enter new salary (leave blank to keep unchanged): ")
-        email=input("Enter new email (leave blank to keep unchanged): ")
+        name=input("Enter new name (leave to keep unchanged): ")
+        position=input("Enter new position (leave to keep unchanged): ")
+        salary=input("Enter new salary (leave to keep unchanged): ")
+        email=input("Enter new email (leave to keep unchanged): ")
         manager.update_employee(id,name if name else None,position if position else None,salary if salary else None,email if email else None)
         os.system('cls' if os.name == 'nt' else 'clear')
     elif choice==4:
